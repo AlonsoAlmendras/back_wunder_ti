@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'frontend',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -54,20 +56,39 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
-#REST_FRAMEWORK = {
-#    'DEFAULT_PERMISSION_CLASSES': 
-#    'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'   
-#  ]  
-#}
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000"
+]
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+
+# REST_FRAMEWORK = {
+#    'DEFAULT_PERMISSION_CLASSES':
+#    'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+#  ]
+# }
 
 ROOT_URLCONF = 'wunder_back.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -89,14 +110,13 @@ WSGI_APPLICATION = 'wunder_back.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Wunder',
+        'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': '22591477',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '5432',
     }
 }
-
 
 
 # Password validation
@@ -136,3 +156,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = "/static/"
+
+LOGIN_URL = '/account/login/'
+LOGIN_REDIRECT_URL = '/app'
