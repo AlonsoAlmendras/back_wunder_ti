@@ -75,7 +75,7 @@ def delete_encuesta(request, encuesta_id):
     try:
         encuesta = Encuesta.objects.get(added_by=user, id=encuesta_id)
         encuesta.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return response(status=status.HTTP_204_NO_CONTENT)
     except ObjectDoesNotExist as e:
         return JsonResponse({'error': str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND)
     except Exception:
